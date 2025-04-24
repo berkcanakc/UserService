@@ -4,7 +4,7 @@ namespace UserService.Infrastructure.Interfaces
 {
     public interface IUserRepository
     {
-        Task<User> GetUserByIdAsync(int userId);
+        Task<User?> GetUserByIdAsync(int userId);
         Task<List<User>> GetAllUsersAsync();
         Task CreateUserAsync(User user);
         Task UpdateUserAsync(User user);

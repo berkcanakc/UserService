@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace UserService.Middleware
+namespace UserService.API.Middlewares
 {
     public class ErrorHandlingMiddleware
     {

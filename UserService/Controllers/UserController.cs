@@ -29,7 +29,7 @@ namespace UserService.API.Controllers
             }
 
             await _userService.CreateUserAsync(user);
-            return CreatedAtAction(nameof(GetUser), new { id = user.UserId }, user);
+            return CreatedAtAction(nameof(GetUserByIdAsync), new { id = user.UserId }, user);
         }
 
         // Kullanıcı girişi (Log In)
@@ -57,9 +57,11 @@ namespace UserService.API.Controllers
 
         // Kullanıcıyı ID ile almak (isteğe bağlı)
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<User>> GetUserByIdAsync(int id)
         {
             var user = await _userService.GetUserByIdAsync(id);
+
+
             if (user == null)
             {
                 return NotFound("User not found.");

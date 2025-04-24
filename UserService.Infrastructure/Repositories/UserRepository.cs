@@ -15,7 +15,7 @@ namespace UserService.Infrastructure.Repositories
         }
 
         // Kullanıcıyı ID ile alır
-        public async Task<User> GetUserByIdAsync(int userId)
+        public async Task<User?> GetUserByIdAsync(int userId)
         {
             return await _context.Users
                 .FirstOrDefaultAsync(u => u.UserId == userId && !u.IsDeleted);  // Silinmiş kullanıcıları hariç tutuyoruz

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.API", "UserService\UserService.API.csproj", "{AC271D95-E9A3-47E0-8229-22891A41C9F3}"
 EndProject
@@ -10,8 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Domain", "UserService.Domain\UserService.Domain.csproj", "{E52FC520-A3C2-410F-8C6C-C7F01BA18746}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Infrastructure", "UserService.Infrastructure\UserService.Infrastructure.csproj", "{559BFAD4-1860-44C1-8609-348E2710325B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Middleware", "UserService.Middleware\UserService.Middleware.csproj", "{D93F33D0-4DDB-43BF-B8CD-B6A25F2D53BA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Tests", "UserService.Tests\UserService.Tests.csproj", "{08CA2C24-3C33-4DD4-98E4-22BC8AC4BD9D}"
 EndProject
@@ -37,10 +35,6 @@ Global
 		{559BFAD4-1860-44C1-8609-348E2710325B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{559BFAD4-1860-44C1-8609-348E2710325B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{559BFAD4-1860-44C1-8609-348E2710325B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D93F33D0-4DDB-43BF-B8CD-B6A25F2D53BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D93F33D0-4DDB-43BF-B8CD-B6A25F2D53BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D93F33D0-4DDB-43BF-B8CD-B6A25F2D53BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D93F33D0-4DDB-43BF-B8CD-B6A25F2D53BA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{08CA2C24-3C33-4DD4-98E4-22BC8AC4BD9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{08CA2C24-3C33-4DD4-98E4-22BC8AC4BD9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08CA2C24-3C33-4DD4-98E4-22BC8AC4BD9D}.Release|Any CPU.ActiveCfg = Release|Any CPU

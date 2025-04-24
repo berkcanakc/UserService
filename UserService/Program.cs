@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using UserService.API.Middlewares;
 using UserService.Application.Interfaces;
 using UserService.Application.Services;
 using UserService.Domain.Entities;

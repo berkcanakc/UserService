@@ -6,7 +6,6 @@ using UserService.Application.Services;
 using UserService.Domain.Entities;
 using UserService.Infrastructure.Data;
 using UserService.Infrastructure.Interfaces;
-using UserService.Middleware;
 
 namespace UserService
 {

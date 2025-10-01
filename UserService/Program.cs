@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 using UserService.API.Middlewares;
 using UserService.Application.Interfaces;
 using UserService.Application.Services;
 using UserService.Domain.Entities;
 using UserService.Infrastructure.Data;
-using UserService.Infrastructure.Interfaces;
 
 namespace UserService
 {
@@ -25,12 +25,19 @@ namespace UserService
                         // 1. DbContext Bağlantısını Yapıyoruz
                         services.AddDbContext<AppDbContext>(options =>
                             options.UseSqlServer(context.Configuration.GetConnectionString("DefaultConnection")));
+                        services.AddSingleton<IConnectionMultiplexer>(sp =>
+                        {
+                            var config = context.Configuration.GetConnectionString("Redis");
+                            var multiplexer = ConnectionMultiplexer.Connect(config);
+                            return multiplexer;
+                        });
 
                         // 2. DI Konfigürasyonu: Service ve Repository'leri bağlayalım
                         services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
                         services.AddScoped<IUserService, Application.Services.UserService>();
                         services.AddScoped<IUserRepository, Infrastructure.Repositories.UserRepository>();
                         services.AddScoped<IJwtService, JwtService>();
+                        services.AddScoped<IRefreshTokenService, RedisRefreshTokenService>();
 
                         //// 3. Global Hata Yönetimi Middleware
                         //services.AddTransient<ErrorHandlingMiddleware>();

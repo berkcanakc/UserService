@@ -23,17 +23,20 @@ namespace UserService.API.Middlewares
             }
             catch (Exception ex)
             {
-                // Hata loglanır
-                _logger.LogError($"An error occurred: {ex.Message}");
+                // Inner exception varsa onu da alalım
+                var detailedMessage = ex.InnerException?.Message ?? ex.Message;
 
-                // Hata kodu ve mesajı ayarlanır
-                context.Response.StatusCode = 500;  // 500 Internal Server Error
-                context.Response.ContentType = "application/json";  // JSON olarak dönüyoruz
+                // Log'a detaylı mesajı bas
+                _logger.LogError(ex, "An error occurred: {Message}", detailedMessage);
 
-                // Hata mesajı döndürülür
-                var errorResponse = new { message = "An unexpected error occurred." };
-                var jsonResponse = JsonSerializer.Serialize(errorResponse);  // JSON formatına dönüştürme
-                await context.Response.WriteAsync(jsonResponse);  // JSON olarak response yazılır
+                // Response ayarı
+                context.Response.StatusCode = 500;
+                context.Response.ContentType = "application/json";
+
+                // Kullanıcıya JSON hata dön
+                var errorResponse = new { message = detailedMessage };
+                var jsonResponse = JsonSerializer.Serialize(errorResponse);
+                await context.Response.WriteAsync(jsonResponse);
             }
         }
     }

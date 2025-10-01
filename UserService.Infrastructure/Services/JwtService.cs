@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using UserService.Domain.Entities;
 
@@ -18,24 +19,36 @@ namespace UserService.Application.Services
 
         public string GenerateJwtToken(User user)
         {
-            var secretKey = _configuration["JwtSettings:SecretKey"];
+            var secret = _configuration["JwtSettings:SecretKey"];
             var issuer = _configuration["JwtSettings:Issuer"];
             var audience = _configuration["JwtSettings:Audience"];
-            var expiration = DateTime.Now.AddMinutes(Convert.ToDouble(_configuration["JwtSettings:ExpirationMinutes"]));
+            var minutes = int.Parse(_configuration["JwtSettings:ExpirationMinutes"]!);
 
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var now = DateTime.UtcNow;
+            var claims = new List<Claim>
+    {
+        new(JwtRegisteredClaimNames.Sub, user.UserId.ToString()),
+        new(JwtRegisteredClaimNames.Email, user.Email),
+        new(ClaimTypes.Role, user.Role.ToString()),
+        new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+        new(JwtRegisteredClaimNames.Iat, ((DateTimeOffset)now).ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)
+    };
 
             var token = new JwtSecurityToken(
                 issuer: issuer,
                 audience: audience,
-                claims: null,
-                expires: expiration,
-                signingCredentials: credentials
+                claims: claims,
+                notBefore: now,
+                expires: now.AddMinutes(minutes),
+                signingCredentials: creds
             );
 
-            return new JwtSecurityTokenHandler().WriteToken(token);  // Token'ı döndürüyoruz
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
 
         public bool ValidateToken(string token)
         {

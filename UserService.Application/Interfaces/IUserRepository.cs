@@ -1,6 +1,6 @@
 ﻿using UserService.Domain.Entities;
 
-namespace UserService.Infrastructure.Interfaces
+namespace UserService.Application.Interfaces
 {
     public interface IUserRepository
     {
@@ -10,5 +10,6 @@ namespace UserService.Infrastructure.Interfaces
         Task UpdateUserAsync(User user);
         Task<User> GetUserByEmailAsync(string email);
         Task<bool> EmailExistsAsync(string email); // E-posta var mı kontrolü
+        Task<bool> UserNameExistsAsync(string userName);
     }
 }

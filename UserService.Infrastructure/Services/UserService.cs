@@ -1,7 +1,6 @@
 ﻿using UserService.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using UserService.Application.Interfaces;
-using UserService.Infrastructure.Interfaces;
 
 namespace UserService.Application.Services
 {
@@ -53,6 +52,11 @@ namespace UserService.Application.Services
             if (await _userRepository.EmailExistsAsync(user.Email))
             {
                 throw new ArgumentException("Email already exists.");
+            }
+
+            if (await _userRepository.UserNameExistsAsync(user.UserName))
+            {
+                throw new ArgumentException("Username already exists.");
             }
 
             // Şifreyi hash'leyerek güvenli bir şekilde saklarız

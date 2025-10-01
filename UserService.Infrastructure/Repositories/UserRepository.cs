@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using UserService.Application.Interfaces;
 using UserService.Domain.Entities;
 using UserService.Infrastructure.Data;
-using UserService.Infrastructure.Interfaces;
 
 namespace UserService.Infrastructure.Repositories
 {
@@ -48,6 +48,12 @@ namespace UserService.Infrastructure.Repositories
         {
             return await _context.Users
                                  .AnyAsync(u => u.Email == email && !u.IsDeleted);  // Silinmiş e-posta adresini kontrol etmiyoruz
+        }
+
+        public async Task<bool> UserNameExistsAsync(string userName)
+        {
+            return await _context.Users
+                                 .AnyAsync(u => u.UserName == userName && !u.IsDeleted);  // Silinmiş e-posta adresini kontrol etmiyoruz
         }
         public async Task<User> GetUserByEmailAsync(string email)
         {

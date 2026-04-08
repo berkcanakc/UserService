@@ -32,21 +32,6 @@ namespace UserService.API.Controllers
             return CreatedAtAction(nameof(GetUserByIdAsync), new { id = user.UserId }, user);
         }
 
-        //// Kullanıcı girişi (Log In)
-        //[HttpPost("login")]
-        //public async Task<ActionResult<string>> LogIn([FromBody] LoginRequest loginRequest)
-        //{
-        //    if (loginRequest == null)
-        //    {
-        //        return BadRequest("Login data is invalid.");
-        //    }
-
-        //    var user = await _userService.AuthenticateAsync(loginRequest.Email, loginRequest.Password);
-
-        //    var token = _jwtService.GenerateJwtToken(user);
-        //    return Ok(new { Token = token }); // JWT Token döndürülecek
-        //}
-
         // Kullanıcı silme (Mantıksal silme)
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteUser(int id)

@@ -5,7 +5,7 @@ using UserService.Application.Services;
 using UserService.Infrastructure.Data;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/users/[controller]")]
 public class AuthController : ControllerBase
 {
     private readonly IJwtService _jwtService;

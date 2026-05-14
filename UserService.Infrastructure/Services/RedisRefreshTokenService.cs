@@ -26,16 +26,20 @@ public class RedisRefreshTokenService : IRefreshTokenService
         return token;
     }
 
-    public Guid? ValidateRefreshToken(string token)
+    public int? ValidateRefreshToken(string token)
     {
         var value = _redis.StringGet($"refresh:{token}");
         if (value.IsNullOrEmpty) return null;
 
-        var data = JsonConvert.DeserializeObject<dynamic>(value);
+        var data = JsonConvert.DeserializeObject<dynamic>(value!);
+
+        if (data == null) return null;
+
         DateTime exp = data.Exp;
+
         if (exp < DateTime.UtcNow) return null;
 
-        return Guid.Parse((string)data.UserId.ToString());
+        return Convert.ToInt32(data.UserId);
     }
 
     public void RevokeRefreshToken(string token)

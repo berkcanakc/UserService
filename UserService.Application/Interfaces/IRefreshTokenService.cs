@@ -3,7 +3,7 @@
     public interface IRefreshTokenService
     {
         string GenerateRefreshToken(int userId);
-        Guid? ValidateRefreshToken(string token);
+        int? ValidateRefreshToken(string token);
         void RevokeRefreshToken(string token);
     }
 }
